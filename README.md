@@ -6,12 +6,12 @@ Run the file by using "python Password_Generator.py"
 Answer the prompt
 Copy New password
 
-If this doesnt run on your machine for some reason
+** If this doesnt run on your machine for some reason
 you can write click and set the default appliction to the python launcher
-This will open up a new terminal running the code.
+This will open up a new terminal running the code. **
 
 ## Password_Generator ##
-import string
+import string<br>
 import random
 
 def generate_password(length):
