@@ -10,14 +10,16 @@ Copy New password
 you can write click and set the default appliction to the python launcher
 This will open up a new terminal running the code. **
 
-## Password_Generator ##
-    #import string<br>
+## Password Generator ##
+    # Password_Generator.py #
+    import string
     import random
     
     def generate_password(length):
         characters = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(characters) for _ in range(length))
         return password
+        
     while True:
         # Usage
         password_length = int(input("Enter the desired password length: "))
