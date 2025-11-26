@@ -1,0 +1,7 @@
+# Password Generator v2.0 Dependencies
+
+# Optional: For clipboard support
+pyperclip>=1.8.2
+
+# Optional: For colored output
+colorama>=0.4.6
