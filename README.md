@@ -1,222 +1,363 @@
-# Password Generator
+# Password Generator v2.0
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Security](https://img.shields.io/badge/Security-Password_Tool-red?style=for-the-badge&logo=key&logoColor=white)
+![Security](https://img.shields.io/badge/Security-Cryptographic-red?style=for-the-badge&logo=shield&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
 
-Simple command-line tool to generate secure random passwords with customizable length.
+**Cryptographically secure password generator with CLI, interactive mode, and strength analysis.**
 
-## 🎯 Purpose
+**Author:** David Osisek (CamoZeroDay)
 
-Create strong, random passwords quickly using Python's built-in cryptographic randomness. Perfect for generating secure credentials for new accounts or updating existing passwords.
+---
 
-## ✨ Features
+## 🎉 What's New in v2.0
 
-- ✅ **Customizable Length** - Generate passwords of any length
-- ✅ **Strong Character Set** - Includes uppercase, lowercase, numbers, and symbols
-- ✅ **Cryptographically Random** - Uses Python's `random` module
-- ✅ **Interactive CLI** - Simple command-line interface
-- ✅ **Quick Generation** - Create multiple passwords in one session
-- ✅ **Zero Dependencies** - Uses only Python standard library
+### 🔒 Security Fixes
+- ✅ **Fixed insecure `random` module** - Now uses cryptographic `secrets`
+- ✅ **Guaranteed character variety** - Ensures all selected character types
+- ✅ **Secure shuffling** - Uses SystemRandom for shuffling
+
+### ✨ New Features
+- ✅ **Command-line interface** - Full argparse support
+- ✅ **Interactive menu** - User-friendly interactive mode
+- ✅ **Password strength analyzer** - Visual feedback with suggestions
+- ✅ **Multiple passwords** - Generate 1-20 at once
+- ✅ **Memorable passphrases** - Easy-to-remember phrases
+- ✅ **Custom character sets** - Enable/disable character types
+- ✅ **Exclude ambiguous** - Remove confusing characters (il1Lo0O)
+- ✅ **Clipboard support** - Copy with one click (optional)
+- ✅ **Color-coded output** - Enhanced UI (optional)
+- ✅ **Input validation** - Proper bounds checking
+- ✅ **Comprehensive help** - Usage examples included
+
+---
 
 ## 🚀 Quick Start
 
-### Prerequisites
+```bash
+# Clone and install
+git clone https://github.com/CamoRageaholic1/Password-Generator.git
+cd Password-Generator
+pip install -r requirements.txt
 
-- Python 3.8 or higher (no additional dependencies!)
+# Interactive mode (default)
+python password_generator_v2.py
 
-### Installation
+# Or use CLI
+python password_generator_v2.py -l 20
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/CamoRageaholic1/Password-Generator.git
-   cd Password-Generator
-   ```
+---
 
-2. **Run the script**
-   ```bash
-   python Password_Generator.py
-   ```
+## 📚 Features
 
-## 📖 Usage Guide
+### Generation Modes
 
-### Basic Usage
+**1. Standard Password**
+```
+K@9mPx#L2nQ$8vY&Tz4W
+  Strength: █████ Very Strong
+  Length: 20 characters
+```
+
+**2. Memorable Passphrase**
+```
+Alpha-Bravo-Charlie-Delta42
+  Strength: ████░ Strong
+  Length: 27 characters
+```
+
+**3. Multiple Passwords**
+```
+ 1. K@9mPx#L2nQ$8vY&
+ 2. Tz4W!bN8xY$2pQm&
+ 3. L5v#Xn2@Ky8Pw$9M
+```
+
+**4. Custom Options**
+- Choose character types
+- Exclude ambiguous characters
+- Set custom length (8-64)
+
+**5. Strength Analysis**
+```
+Password: MyP@ss
+  Strength: ██░░░ Fair
+  Length: 6 characters
+
+Suggestions:
+  • Too short (min 8)
+  • Add more length
+```
+
+---
+
+## 🔧 Usage
+
+### Interactive Mode
 
 ```bash
-$ python Password_Generator.py
-
-Enter the desired password length: 16
-Generated password: 7xK@3#mP!nQ$8zR%
-
-Press Enter to generate another password or type 'exit' to quit:
+python password_generator_v2.py
+# or
+python password_generator_v2.py -i
 ```
 
-### Generate Multiple Passwords
+**Menu:**
+```
+=== Password Generator ===
+
+1. Generate Standard Password
+2. Generate Memorable Passphrase
+3. Generate Multiple Passwords
+4. Custom Options
+5. Analyze Password Strength
+6. Quit
+```
+
+### Command-Line Mode
+
+**Basic usage:**
+```bash
+# Generate 16-char password (default)
+python password_generator_v2.py
+
+# Generate 20-char password
+python password_generator_v2.py -l 20
+
+# Generate 5 passwords
+python password_generator_v2.py -m 5
+```
+
+**Advanced options:**
+```bash
+# No symbols
+python password_generator_v2.py --no-symbols
+
+# No uppercase
+python password_generator_v2.py --no-upper
+
+# Include ambiguous characters
+python password_generator_v2.py --include-ambiguous
+
+# Memorable passphrase
+python password_generator_v2.py --memorable --words 5
+
+# Copy to clipboard
+python password_generator_v2.py -c
+
+# Analyze strength
+python password_generator_v2.py --analyze "MyPassword123"
+```
+
+### Full CLI Options
+
+```
+usage: password_generator_v2.py [-h] [-l LENGTH] [-m MULTIPLE]
+                                [--no-upper] [--no-lower]
+                                [--no-digits] [--no-symbols]
+                                [--include-ambiguous] [--memorable]
+                                [--words WORDS] [--analyze ANALYZE]
+                                [-c] [-i]
+
+optional arguments:
+  -h, --help            show help message
+  -l, --length LENGTH   password length (8-64, default: 16)
+  -m, --multiple        generate multiple (1-20)
+  --no-upper            exclude uppercase
+  --no-lower            exclude lowercase
+  --no-digits           exclude digits
+  --no-symbols          exclude symbols
+  --include-ambiguous   include ambiguous (il1Lo0O)
+  --memorable           generate passphrase
+  --words WORDS         words for passphrase (3-8)
+  --analyze ANALYZE     analyze password strength
+  -c, --copy            copy to clipboard
+  -i, --interactive     interactive mode
+```
+
+---
+
+## 📦 Requirements
+
+### Required
+- Python 3.8+
+
+### Optional
+- pyperclip>=1.8.2 (clipboard)
+- colorama>=0.4.6 (colors)
 
 ```bash
-$ python Password_Generator.py
+# Install all (recommended)
+pip install -r requirements.txt
 
-Enter the desired password length: 20
-Generated password: aB3!dE5@gH7#jK9$mN1%
-
-Press Enter to generate another password or type 'exit' to quit: [Enter]
-
-Enter the desired password length: 12
-Generated password: xY2!wZ4@vU6#
-
-Press Enter to generate another password or type 'exit' to quit: exit
+# Or minimal (no dependencies)
+python password_generator_v2.py
 ```
 
-## 🔒 Password Strength
+---
 
-### Character Set
-
-The generator uses a comprehensive character set:
-
-| Type | Characters | Count |
-|------|------------|-------|
-| **Uppercase** | A-Z | 26 |
-| **Lowercase** | a-z | 26 |
-| **Digits** | 0-9 | 10 |
-| **Symbols** | !@#$%^&*()_+-=[]{};\|:<>?,. | 32 |
-| **Total** | | 94 |
-
-### Recommended Lengths
-
-| Use Case | Recommended Length | Security Level |
-|----------|-------------------|----------------|
-| Low security accounts | 8-10 characters | Basic |
-| General accounts | 12-16 characters | Good |
-| Sensitive accounts | 16-20 characters | Strong |
-| High-security systems | 20+ characters | Very Strong |
-| Passwords for encryption | 32+ characters | Maximum |
-
-### Example Passwords
-
-```bash
-Length 8:  aB3!xY7@
-Length 12: xK9#pL2$mN5!
-Length 16: wZ7@vU3#tS9$qR1!
-Length 20: dF8!cE2@bD6#aA4$zX0%
-```
-
-## 💡 Best Practices
-
-### Using Generated Passwords
-
-1. **Never reuse passwords** - Generate unique password for each account
-2. **Use a password manager** - Store generated passwords securely
-3. **Enable 2FA** - Add second factor authentication when available
-4. **Update regularly** - Change passwords periodically for sensitive accounts
-
-### Security Tips
-
-- ✅ **DO:** Use passwords 12+ characters for important accounts
-- ✅ **DO:** Combine with password manager
-- ✅ **DO:** Generate new password when security is compromised
-- ❌ **DON'T:** Use generated password for multiple accounts
-- ❌ **DON'T:** Write passwords on sticky notes
-- ❌ **DON'T:** Share passwords over insecure channels
-
-## 🔧 Customization
-
-### Modify Character Set
-
-Edit `Password_Generator.py` to customize the character set:
-
-```python
-# Only alphanumeric (no symbols)
-characters = string.ascii_letters + string.digits
-
-# Only letters and numbers (no special chars)
-characters = string.ascii_letters + string.digits
-
-# Custom character set
-characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%"
-```
-
-### Add Password Strength Meter
-
-```python
-def check_strength(password):
-    if len(password) < 8:
-        return "Weak"
-    elif len(password) < 12:
-        return "Medium"
-    elif len(password) < 16:
-        return "Strong"
-    else:
-        return "Very Strong"
-```
-
-## 📁 Project Structure
+## 📁 Files
 
 ```
 Password-Generator/
-├── Password_Generator.py    # Main password generator
-├── README.md                # This file
-└── LICENSE                  # MIT License
+├── password_generator_v2.py  # v2.0 (use this)
+├── Password_Generator.py     # v1.0 (legacy)
+├── requirements.txt          # Dependencies
+├── CHANGELOG.md              # Version history
+├── README.md                 # This file
+└── LICENSE                   # MIT License
 ```
 
-## 🛠️ Troubleshooting
+---
 
-### "SyntaxError" or script won't run
-Ensure you're using Python 3:
+## 🔒 Security
+
+### Cryptographic Randomness
+
+**v1.0 (Insecure):**
+```python
+import random  # Predictable!
+password = ''.join(random.choice(chars) for _ in range(n))
+```
+
+**v2.0 (Secure):**
+```python
+import secrets  # Cryptographically secure!
+password = ''.join(secrets.choice(chars) for _ in range(n))
+```
+
+### Why This Matters
+
+The `random` module uses a **pseudorandom** number generator that can be predicted if an attacker knows the seed. The `secrets` module uses OS-level cryptographically secure randomness.
+
+**For passwords:** Always use `secrets`, never `random`!
+
+---
+
+## 📊 Password Strength Guide
+
+| Length | Characters | Strength | Time to Crack* |
+|--------|------------|----------|----------------|
+| 8 | All types | Fair | Hours |
+| 12 | All types | Good | Years |
+| 16 | All types | Strong | Centuries |
+| 20+ | All types | Very Strong | Beyond practical |
+
+*Estimated time with modern hardware/techniques
+
+### Character Set Size
+
+- **Uppercase only:** 26 chars
+- **+ Lowercase:** 52 chars
+- **+ Digits:** 62 chars
+- **+ Symbols:** 94 chars
+- **- Ambiguous:** 87 chars (recommended)
+
+**More characters = exponentially stronger passwords!**
+
+---
+
+## 🔧 Troubleshooting
+
+**Import errors:**
 ```bash
-python3 Password_Generator.py
+pip install pyperclip colorama
 ```
 
-### Want to run without typing Python command
-Make executable (Linux/macOS):
+**Clipboard not working (Linux):**
 ```bash
-chmod +x Password_Generator.py
-./Password_Generator.py
+sudo apt-install xclip  # or xsel
 ```
 
-Or create shortcut (Windows):
-- Right-click → "Send to" → "Desktop (create shortcut)"
+**No colors:**
+```bash
+pip install colorama
+```
 
-## 🚀 Future Enhancements
+---
 
-Ideas for improvements:
+## 📊 v1.0 vs v2.0
 
-- [ ] Add password strength meter
-- [ ] Include pronounceable password option
-- [ ] Add password history/clipboard copy
-- [ ] Create GUI version
-- [ ] Add pattern exclusions (no similar characters like O/0, l/1)
-- [ ] Export passwords to file
-- [ ] Integration with password managers
+| Feature | v1.0 | v2.0 |
+|---------|------|------|
+| Random Module | ❌ `random` | ✅ `secrets` |
+| CLI Support | ❌ | ✅ |
+| Interactive Menu | ❌ | ✅ |
+| Strength Analysis | ❌ | ✅ |
+| Multiple Generation | ❌ | ✅ |
+| Memorable Phrases | ❌ | ✅ |
+| Custom Options | ❌ | ✅ |
+| Clipboard | ❌ | ✅ |
+| Colors | ❌ | ✅ |
+| Input Validation | ❌ | ✅ |
+| Help System | ❌ | ✅ |
+
+---
+
+## 💡 Examples
+
+### Quick Generation
+```bash
+# Generate and copy 20-char password
+python password_generator_v2.py -l 20 -c
+
+# Generate 10 passwords
+python password_generator_v2.py -m 10
+
+# Generate without symbols
+python password_generator_v2.py --no-symbols
+```
+
+### Memorable Passphrases
+```bash
+# 4-word passphrase
+python password_generator_v2.py --memorable
+
+# 6-word passphrase
+python password_generator_v2.py --memorable --words 6
+```
+
+### Security Analysis
+```bash
+# Check your current password
+python password_generator_v2.py --analyze "MyCurrentPassword"
+```
+
+---
 
 ## 🤝 Contributing
 
-Contributions welcome! Some ideas:
+Contributions welcome!
 
-- Improve randomness (use `secrets` module for production)
-- Add configuration file support
-- Create batch password generation
-- Add password complexity checker
-- Implement different password patterns
+**Ideas for v3.0:**
+- Pronounceable password generation
+- Password policy compliance checker
+- Batch generation to file
+- API for integration
+- GUI version
 
-## 📄 License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📝 License
 
-## 🔐 Security Note
+MIT License - see [LICENSE](LICENSE)
 
-For production use or highly sensitive applications, consider using Python's `secrets` module instead of `random` for cryptographically secure random number generation:
+---
 
-```python
-import secrets
-password = ''.join(secrets.choice(characters) for _ in range(length))
-```
+## ⚠️ Security Note
 
-## 📫 Support
+**For Security-Critical Applications:**
 
-- 🐛 **Bug Reports:** Open an issue on GitHub  
-- 💡 **Feature Requests:** Open an issue with the "enhancement" label
+While this generator uses cryptographic randomness, for highest-security needs consider:
+- Hardware random number generators
+- Dice-based generation (Diceware)
+- Audited password managers
 
 ---
 
 **Author:** David Osisek (CamoZeroDay)  
-**Made with ❤️ for secure password generation**
+**Version:** 2.0  
+**License:** MIT
+
+**🔒 Generate strong passwords. Use unique passwords. Stay secure. 🔒**
